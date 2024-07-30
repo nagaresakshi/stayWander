@@ -1,0 +1,93 @@
+<% layout("./layouts/boilerplate") %>
+
+<script>
+    const maptoken = "<%= process.env.MAP_TOKEN %>"
+    const coordinates = <%- JSON.stringify(listing.geometry.coordinates) %>;
+</script>
+
+<link rel="stylesheet" href="/boiler.css">
+<body>
+    <div class="onecontainer">
+        <h2 class="onetitle">Listing detail</h2>
+    <div class="onecard" >
+        <img src="<%= listing.image.url %>" class="onecard-img-top" alt="image">
+        <div class="onecard-body">
+            <p>Owned by <i><%= listing.owner.username %></i></p>
+            <p><b><%= listing.title %></b></p>
+            <p><%= listing.description %></p>
+            <p>&#x20B9; <%= formatPrice(listing.price) %></p>
+            <p><%= listing.location %></p>
+            <p><%= listing.country %></p>
+        </div>
+    </div>
+    <% if(curUser && curUser._id.equals(listing.owner._id)){  %>
+    <div class="onebtn">
+        <form  method="get" action="/listing/<%= listing._id %>/edit">
+            <button class="oneedit">Edit</button>
+        </form><br>
+        <form method="POST" action="http://localhost:8080/listing/<%= listing._id %>?_method=DELETE">
+            <button class="onedelete">Delete</button>
+        </form>
+    </div>
+    <% } %>
+    </div>
+
+    <div class="onereview col-6 offset-4 mb-3 mt-3">
+        <hr>
+        <% if(curUser){ %>
+        <h3>Leave a Review</h3>
+        <form action="/listing/<%= listing._id %>/reviews" method="post" >
+            <div class="onerating mb-3 mt-3">
+            <p>Rating</p>
+            <label for="rating" class="form-label"></label>
+            <fieldset class="starability-slot">
+                <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="1" checked aria-label="No rating." />
+                <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                <label for="first-rate1" title="Terrible">1 star</label>
+                <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                <label for="first-rate2" title="Not good">2 stars</label>
+                <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                <label for="first-rate3" title="Average">3 stars</label>
+                <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                <label for="first-rate4" title="Very good">4 stars</label>
+                <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                <label for="first-rate5" title="Amazing">5 stars</label>
+                </div>
+            </fieldset>
+            <div class="onecomment mb-3 mt-3">
+                <p>Comment</p>
+                <label for="comment" class="form-label"></label>
+                <textarea name="review[comment]" id="comment" cols="15" rows="4" class="form-control"></textarea>
+            </div>
+            <button class="onereviewbtn btn btn-outline-dark" type="submit">submit</button>
+        </form>
+        <% } %>
+        <hr>
+        <% if(listing && listing.reviews && listing.reviews.length > 0){ %>
+        <p><b>All Reviews</b></p>
+        <ul>
+            <div class="row">
+                <% for(review of listing.reviews) { %>
+                    <div class="onerevcard col-5 mb-3">
+                        <div class="card-body onecardrev">
+                        <h5 class="card-title"><%= review.author.username %></h5>
+                        <p class="starability-result" data-rating="<%= review.rating %>"></p>
+                        <p class="card-text"><%= review.comment %></p>
+                        <% if (curUser && curUser._id.equals(review.author._id)){ %>
+                        <form method="post" action="/listing/<%= listing._id %>/reviews/<%= review._id %>?_method=delete" >
+                            <button class="btn btn-sm btn-dark delbtn">Delete</button>
+                        </form>
+                        <% } %>
+                        </div>
+                    </div>
+                <% } %>  
+            </div>
+        </ul>
+        <% } %>
+        <div class="col-6 mb-3">
+            <h3>Where you'll be</h3>
+            <div id="map"></div>
+        </div>
+    </div>
+    <script src="/js/map.js"></script>
+</body>

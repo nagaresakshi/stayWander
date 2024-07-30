@@ -1,0 +1,53 @@
+<% layout("./layouts/boilerplate") %>
+
+<link rel="stylesheet" href="/boiler.css">
+<body>
+    <form class="newform needs-validation" method="post" action="/listing" novalidate enctype="multipart/form-data">
+        <div class="row container">
+            <div class="col-8 offset-4">
+                <div class="div1 mb-3 mt-3">
+                    <label for="title" class="form-label mg-bt-3" >Title</label>
+                    <input type="text" class="form-control" name="title" placeholder="Enter catchy name" required >
+                    <div class="valid-feedback">
+                        Looks good!
+                      </div>
+                </div>
+                <div class="div2 mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea name="description"class="form-control" id="des" cols="30" rows="3" required></textarea>
+                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                        Please enter description
+                      </div>
+                </div>
+                <div class="div3 mb-3">
+                    <label for="image" class="form-label">Image</label>
+                    <input type="file" class="form-control" name="image" required>
+                </div>
+                <div class="row">
+                    <div class="div4 mb-3 col-md-4 ">
+                        <label for="price" class="form-label">Price</label>
+                        <input type="number" class="form-control" name="price" placeholder="1200" required>
+                        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                            Please enter price
+                          </div>
+                    </div>
+                    <div class="div5 mb-3 col-md-8">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" class="form-control" name="location" placeholder="Jaipur,Rajasthan" required>
+                        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                            Please enter location
+                          </div>
+                    </div>
+                </div>
+                <div class="div6">
+                    <label for="country" class="form-label">Country</label>
+                    <input type="text" class="form-control" name="country" placeholder="India" required><br><br>
+                    <div id="validationServerUsernameFeedback" class="div6feedback invalid-feedback"  >
+                        Please enter country
+                      </div>
+                </div>
+                <button class="btn" style="margin-bottom: 28px;background-color: rgb(198, 18, 18); color: white;">Add</button>
+            </div>    
+        </div>
+    </form>
+</body>

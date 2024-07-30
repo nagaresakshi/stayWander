@@ -1,0 +1,57 @@
+<% layout("./layouts/boilerplate") %>
+
+<link rel="stylesheet" href="/boiler.css">
+<body>
+    <form method="post" action="/listing/<%= editLisiting._id %>" class="needs-validation" novalidate enctype="multipart/form-data">
+        <div class="row container">
+            <div class="col-8 offset-4">
+                <div class="div1 mb-3 mt-3">
+                    <label for="title" class="form-label mg-bt-3">Title</label>
+                    <input type="text" class="form-control" name="title" value="<%= editLisiting.title %>" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="div2 mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea name="description" class="form-control" id="des" cols="30" rows="3" required><%= editLisiting.description %></textarea>
+                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                        Please enter description
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <p>Original Image</p>
+                    <img style="height: 250px;width: 330px;border-radius: 10px;" src="<%= editLisiting.image.url %>" alt="img">
+                </div>
+                <div class="div3 mb-3">
+                    <label for="image" class="form-label">Upload New Image</label>
+                    <input type="file" class="form-control" name="image">
+                </div>
+                <div class="row">
+                    <div class="div4 mb-3 col-md-4">
+                        <label for="price" class="form-label">Price</label>
+                        <input type="number" class="form-control" name="price" value="<%= editLisiting.price %>" required>
+                        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                            Please enter price
+                        </div>
+                    </div>
+                    <div class="div5 mb-3 col-md-8">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" class="form-control" name="location" value="<%= editLisiting.location %>" required>
+                        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                            Please enter location
+                        </div>
+                    </div>
+                </div>
+                <div class="div6" style="height: 100px;">
+                    <label for="country" class="form-label">Country</label>
+                    <input type="text" class="form-control" name="country" value="<%= editLisiting.country %>" required>
+                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                        Please enter country
+                    </div><br><br>
+                </div>
+                <button class="btn" style="margin-bottom: 28px;background-color: rgb(198, 18, 18); color: white;">Submit</button>
+            </div>
+        </div>
+    </form>
+</body>
